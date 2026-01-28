@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
+import Itemlist from './itemlist.vue';
 let i = 1;
 let items = ref([
     {id: i++, text: 'Sai', isDone: true },
@@ -10,6 +11,8 @@ let items = ref([
 let newItem = ref('');
 
 let doneItems = computed(() => items.value.filter(i => i.isDone));
+
+let ToDoItems = computed(() => items.value.filter(i => !i.isDone));
 
 function add() {
     if(newItem.value.trim() !== ''){
@@ -32,21 +35,10 @@ function add() {
             </div>
         </div>
         <div class="content">
-            <h1>All Items</h1>
-            <ul>
-                <li v-for="item in items">
-                    {{ item.text }}
-                    <input type="checkbox" v-model="item.isDone">
-                </li>
-            </ul>
+            <Itemlist :items="items" title="all items"></Itemlist>
+            <Itemlist :items="doneItems" title="done items"></Itemlist>
+            <Itemlist :items="ToDoItems" title="to do items"></Itemlist>
 
-            <h1>Done Items</h1>
-            <ul>
-                <li v-for="item in doneItems">
-                    {{ item.text }}
-                    <input type="checkbox" v-model="item.isDone">
-                </li>
-            </ul>
         </div>
     </div>
 </template>
