@@ -1,44 +1,22 @@
 <script setup>
-import { computed, ref } from 'vue';
-import Itemlist from './itemlist.vue';
-let i = 1;
-let items = ref([
-    {id: i++, text: 'Sai', isDone: true },
-    {id: i++, text: 'Piim', isDone: false },
-    {id: i++, text: 'Viin', isDone: true },
-    {id: i++, text: 'Õlu', isDone: false },
-]);
-let newItem = ref('');
+import { ref } from 'vue';
 
-let doneItems = computed(() => items.value.filter(i => i.isDone));
+let modalActive = ref(false)
 
-let ToDoItems = computed(() => items.value.filter(i => !i.isDone));
-
-function add() {
-    if(newItem.value.trim() !== ''){
-        items.value.push({id: i++, text: newItem.value.trim(), isDone: false });
-    }
-    newItem.value = '';
-}
+let value = modalActive ? 'modal is-active' : 'modal';
 </script>
 
 <template>
     <div class="container">
-        <div class="field has-addons mt-2">
-            <div class="control is-expanded">
-                <input class="input" type="text" v-model="newItem" @keypress.enter="add">
+        <button class="button is-primary" @click="modalActive = true">Open Modal</button>
+        <div :class="modalActive ? 'modal is-active' : 'modal'">
+            <div class="modal-background" @click="modalActive = false"></div>
+            <div class="modal-content">
+                <p class="image is-4by3">
+                    <img src="https://bulma.io/assets/images/placeholders/1280x960.png" alt="">
+                </p>
             </div>
-            <div class="control">
-                <button class="button is-info" @click="add">
-                    Add Item
-                </button>
-            </div>
-        </div>
-        <div class="content">
-            <Itemlist :items="items" title="all items"></Itemlist>
-            <Itemlist :items="doneItems" title="done items"></Itemlist>
-            <Itemlist :items="ToDoItems" title="to do items"></Itemlist>
-
+            <button class="modal-close is-large" aria-label="close"></button>
         </div>
     </div>
 </template>
