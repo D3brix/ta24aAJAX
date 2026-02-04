@@ -17,7 +17,7 @@ let modal2Active = ref(false)
         
         <Modal :active="modal2Active" @close="modal2Active=false" url="https://picsum.photos/200/300?r=2"></Modal>
 
-        
+        <ImgModal></ImgModal>
     </div>
 </template>
 
