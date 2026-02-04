@@ -1,17 +1,21 @@
 <script setup>
 import { ref } from 'vue';
-import Modal from './components/Modal.vue';
+import Tabs from './components/Tabs.vue';
 
-let modalActive = ref(false)
+let titles = ref([
+    'item 1',
+    'item 2',
+    'item 3',
+    'item 4',
+]);
 
-let value = modalActive ? 'modal is-active' : 'modal';
+let activeTab = ref(0);
 </script>
 
-<template>
+<template> 
+  <Tabs :titles="titles" :active="activeTab"></Tabs>
     <div class="container">
-        <button class="button is-primary" @click="modalActive = true">Open Modal</button>
-        <Modal :active="modalActive" @close="modalActive=false"></Modal>
-        
+     
     </div>
 </template>
 
